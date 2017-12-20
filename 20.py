@@ -55,20 +55,10 @@ def part1(particles):
 
 
 def part2(particles, iters):
-    n = 0
-    while n < iters:
+    for _ in range(iters):
         particles = tick(particles)
-        part = {}
-        for p in particles:
-            count = 0
-            for p1 in particles:
-                if particles[p][0] == particles[p1][0]:
-                    count += 1
-            if count == 1:
-                part[p] = particles[p]
-
-        particles = part
-        n += 1
+        pos = [particles[x][0] for x in particles]
+        particles = {k: particles[k] for k in particles if pos.count(particles[k][0]) == 1}
 
     return len(particles)
 
