@@ -59,7 +59,6 @@ def fractal(rules):
     return np.count_nonzero(art == '#')
 
 
-
 if __name__ == '__main__':
     rules = read_rules('21puzzle.txt')
     numb = fractal(rules)
