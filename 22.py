@@ -28,36 +28,15 @@ def print_puzzle(puzzle):
 
 
 def rotR(facing):
-    if facing == (0, 1):
-        return 1, 0
-    elif facing == (1, 0):
-        return 0, -1
-    elif facing == (0, -1):
-        return -1, 0
-    elif facing == (-1, 0):
-        return 0, 1
+    return facing[1], facing[0] * -1
 
 
 def rotL(facing):
-    if facing == (0, 1):
-        return -1, 0
-    elif facing == (1, 0):
-        return 0, 1
-    elif facing == (0, -1):
-        return 1, 0
-    elif facing == (-1, 0):
-        return 0, -1
+    return facing[1] * -1, facing[0]
 
 
 def reverse(facing):
-    if facing == (0, 1):
-        return 0, -1
-    elif facing == (1, 0):
-        return -1, 0
-    elif facing == (0, -1):
-        return 0, 1
-    elif facing == (-1, 0):
-        return 1, 0
+    return facing[0] * -1, facing[1] * -1
 
 
 def traverse(puzzle, lx, ly):
@@ -111,3 +90,4 @@ if __name__ == '__main__':
     puzzle, lx, ly = read_puzzle('puzzles/22__.txt')
     infections = traverse_part2(puzzle, lx, ly)
     print(infections)
+    
