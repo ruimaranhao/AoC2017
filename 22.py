@@ -13,100 +13,30 @@ def read_puzzle(name):
     return puzzle, lx, ly
 
 
-def print_puzzle(puzzle):
-
-    minx = min({x for (x, y) in puzzle})
-    maxx = max({x for (x, y) in puzzle})
-
-    miny = min({y for (x, y) in puzzle})
-    maxy = max({y for (x, y) in puzzle})
-
-    for i in range(minx, maxx + 1):
-        for j in range(miny, maxy + 1):
-            print(puzzle.get((i, j), "."), end='')
+def print_puzzle(puzzle, lx, ly):
+    for i in range(lx):
+        for j in range(ly):
+            print(puzzle[(i,j)], end='')
         print("")
-
-
-def rotR(facing):
-    if facing == (0, 1):
-        return 1, 0
-    elif facing == (1, 0):
-        return 0, -1
-    elif facing == (0, -1):
-        return -1, 0
-    elif facing == (-1, 0):
-        return 0, 1
-
-
-def rotL(facing):
-    if facing == (0, 1):
-        return -1, 0
-    elif facing == (1, 0):
-        return 0, 1
-    elif facing == (0, -1):
-        return 1, 0
-    elif facing == (-1, 0):
-        return 0, -1
-
-
-def reverse(facing):
-    if facing == (0, 1):
-        return 0, -1
-    elif facing == (1, 0):
-        return -1, 0
-    elif facing == (0, -1):
-        return 0, 1
-    elif facing == (-1, 0):
-        return 1, 0
 
 
 def traverse(puzzle, lx, ly):
     curr = (int(lx / 2), int(ly / 2))
 
-    curr_facing = (-1, 0)
-
-    infections = 0
-    for _ in range(10000):
-        node = puzzle.get(curr, ".")
+    print(puzzle)
+    for _ in range(2):
+        print("----")
+        node = puzzle[curr]
         if node == '#':
-            curr_facing = rotR(curr_facing)
             puzzle[curr] = '.'
+            curr = (curr[0] + 1, curr[1])
         elif node == '.':
-            curr_facing = rotL(curr_facing)
             puzzle[curr] = '#'
-            infections += 1
+            curr = (curr[0], curr[1] - 1)
 
-        curr = tuple(map(sum, zip(curr, curr_facing)))
+            print_puzzle(puzzle, lx, ly)
 
-        #print_puzzle(puzzle)
-    return infections
-
-
-def traverse_part2(puzzle, lx, ly):
-    curr = (int(lx / 2), int(ly / 2))
-
-    curr_facing = (-1, 0)
-    infections = 0
-    for _ in range(10000000):
-        node = puzzle.get(curr, ".")
-        if node == '#':
-            curr_facing = rotR(curr_facing)
-            puzzle[curr] = 'F'
-        elif node == '.':
-            curr_facing = rotL(curr_facing)
-            puzzle[curr] = 'W'
-        elif node == 'W':
-            infections += 1
-            puzzle[curr] = '#'
-        elif node == 'F':
-            curr_facing = reverse(curr_facing)
-            puzzle[curr] = '.'
-
-        curr = tuple(map(sum, zip(curr, curr_facing)))
-
-    return infections
 
 if __name__ == '__main__':
-    puzzle, lx, ly = read_puzzle('22__.txt')
-    infections = traverse_part2(puzzle, lx, ly)
-    print(infections)
+    puzzle, lx, ly = read_puzzle('22.txt')
+    traverse(puzzle, lx, ly)
