@@ -90,4 +90,3 @@ if __name__ == '__main__':
     puzzle, lx, ly = read_puzzle('puzzles/22__.txt')
     infections = traverse_part2(puzzle, lx, ly)
     print(infections)
-    
