@@ -14,28 +14,24 @@ def read_components(name):
     return d1
 
 
-def gen_bridges(library, bridge=None):
-    l, s, components, a = bridge or (0, 0, set(), 0)
+def bridges(lib, bridge=(0, 0, set(), 0)):
+    min_max = lambda a, b: (a, b) if a <= b else (b, a)
 
-    for b in library[a]:
-        print(a, b)
-        next = (a, b) if a <= b else (b, a)
-        if next not in components:
-            new = l+1, s+a+b, (components | {next}), b
+    num, s, components, a = bridge
+    for rhs in lib[a]:
+        nxt = min_max(a, rhs)
+        if nxt not in components:
+            new = num + 1, s + a + rhs, components | {nxt}, rhs
             yield new
-            yield from gen_bridges(library, new)
-
-
-def solve(comp):
-    return [b[:2] for b in gen_bridges(comp)]
+            yield from bridges(lib, new)
 
 
 if __name__ == "__main__":
-    comp = read_components('puzzles/24.txt')
-    solution = solve(comp)
-    part1 = sorted(solution, key=lambda x: x[1])[-1][1]
-    part2 = sorted(solution)[-1][1]
+    library = read_components('puzzles/24__.txt')
 
+    part1 = sorted(bridges(library), key=lambda x: x[1])[-1][1]
     print(part1)
+
+    part2 = sorted(bridges(library))[-1][1]
     print(part2)
 
