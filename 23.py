@@ -100,7 +100,7 @@ def execute_part2_optz():
 
 if __name__ == "__main__":
     instrs = read('puzzles/23.txt')
-    #print(execute(instrs))
+    print(execute(instrs))
     print(execute_part2_optz())
 
 
