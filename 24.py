@@ -27,7 +27,7 @@ def bridges(lib, bridge=(0, 0, set(), 0)):
 
 
 if __name__ == "__main__":
-    library = read_components('puzzles/24__.txt')
+    library = read_components('puzzles/24.txt')
 
     part1 = sorted(bridges(library), key=lambda x: x[1])[-1][1]
     print(part1)
